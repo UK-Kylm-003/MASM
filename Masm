@@ -1,0 +1,172 @@
+https://ankurm.com/8086-assembly-program-to-add-two-16-bit-numbers/
+
+8086 ASSEMBLY PROGRAM TO ADD TWO 16 BIT NUMBERS
+
+data segment
+a dw 0202h
+b dw 0408h
+c dw ?
+data ends
+ 
+code segment
+assume cs:code,ds:data
+start:
+mov ax,data
+mov ds,ax
+mov ax,a
+mov bx,b
+add ax,bx
+mov c,ax
+int 3
+code ends
+end start
+
+
+8086 ASSEMBLY PROGRAM TO SUBTRACT TWO 16 BIT NUMBERS
+
+data segment
+a dw 9A88h
+b dw 8765h
+c dw ?
+data ends
+ 
+code segment
+assume cs:code,ds:data
+start:
+mov ax,data
+mov ds,ax
+mov ax,a
+mov bx,b
+sub ax,bx
+mov c,ax
+int 3
+code ends
+end start
+
+
+8086 ASSEMBLY PROGRAM TO MULTIPLY TWO 16 BIT NUMBERS
+
+data segment
+a dw 1234h
+b dw 5678h
+c dd ?
+data ends
+ 
+code segment
+assume ds:data, cs:code
+start:
+mov ax,data
+mov ds,ax
+mov ax,a
+mov bx,b
+mul bx
+mov word ptr c,ax
+mov word ptr c+2,dx
+int 3
+code ends
+
+
+
+end start
+
+
+
+8086 ASSEMBLY PROGRAM TO DIVIDE TWO 16 BIT NUMBERS
+
+data segment
+a dw 4444h
+b dw 0002h
+c dw ?
+data ends
+ 
+code segment
+assume ds:data, cs:code
+start:
+mov ax,data
+mov ds,ax
+mov ax,a
+mov bx,b
+div bx
+mov c,ax
+int 3
+code ends
+end start
+
+
+8086 ASSEMBLY PROGRAM TO SEARCH AN ELEMENT IN AN ARRAY
+
+DATA SEGMENT
+STRING1 DB 11H,22H,33H,44H,55H
+MSG1 DB "FOUND$"
+MSG2 DB "NOT FOUND$"
+SE DB 33H
+DATA ENDS
+ 
+PRINT MACRO MSG
+MOV AH, 09H
+LEA DX, MSG
+INT 21H
+INT 3
+ENDM
+ 
+CODE SEGMENT
+ASSUME CS:CODE, DS:DATA
+START:
+MOV AX, DATA
+MOV DS, AX
+MOV AL, SE
+LEA SI, STRING1
+MOV CX, 04H
+ 
+UP:
+MOV BL,[SI]
+CMP AL, BL
+JZ FO
+INC SI
+DEC CX
+JNZ UP
+PRINT MSG2
+JMP END1
+ 
+FO:
+PRINT MSG1
+ 
+END1:
+INT 3
+CODE ENDS
+END START
+
+
+8086 ASSEMBLY PROGRAM TO SORT NUMBERS IN ASCENDING ORDER
+
+DATA SEGMENT
+STRING1 DB 99H,12H,56H,45H,36H
+DATA ENDS
+ 
+CODE SEGMENT
+ASSUME CS:CODE,DS:DATA
+START: MOV AX,DATA
+MOV DS,AX
+ 
+MOV CH,04H
+ 
+UP2: MOV CL,04H
+LEA SI,STRING1
+ 
+UP1: MOV AL,[SI]
+MOV BL,[SI+1]
+CMP AL,BL
+JC DOWN
+MOV DL,[SI+1]
+XCHG [SI],DL
+MOV [SI+1],DL
+ 
+DOWN: INC SI
+DEC CL
+JNZ UP1
+DEC CH
+JNZ UP2
+ 
+INT 3
+CODE ENDS
+END START
